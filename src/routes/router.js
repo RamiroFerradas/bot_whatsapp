@@ -1,24 +1,19 @@
 const express = require("express");
-const fs = require("fs");
 const { join } = require("path");
 const { createReadStream } = require("fs");
 const { verificarAutenticacion } = require("./auth");
+const { adapterProvider } = require("../chatbot/app");
+const { getInfoDolar } = require("../services/getDolar");
 const router = express.Router();
 
+const menusData = require("../chatbot/menus.json");
+
 router.get("/menus", (req, res) => {
-  // Leer el archivo JSON con los menús
-  fs.readFile("../chatbot/menus.json", "utf8", (err, data) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: "Error al leer los menús" });
-    }
-
-    // Convertir el contenido del archivo JSON en un objeto JavaScript
-    const menus = JSON.parse(data);
-
-    // Devolver los menús en formato JSON
-    res.json({ menus });
-  });
+  try {
+    res.json(menusData);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener los menús" });
+  }
 });
 
 // Middleware para verificar la autenticación
@@ -29,6 +24,20 @@ router.get("/get-qr", verificarAutenticacion, (req, res) => {
 
   res.writeHead(200, { "Content-Type": "image/png" });
   fileStream.pipe(res);
+});
+
+router.post("/send-message-bot", async (req, res) => {
+  try {
+    const { id } = req.query;
+    const { message } = req.body;
+    console.log(message);
+    await adapterProvider.sendText(id, message);
+    console.log("Mensaje enviado mediante método POST:", message);
+    res.send({ data: "enviado!" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: "Error al enviar el mensaje" });
+  }
 });
 
 module.exports = router;

@@ -15,13 +15,13 @@ const flowPrincipal = addKeyword(["hola", "ole", "alo", "buenas"])
   .addAnswer("Escribe *Pedir* si te interesa algo", { delay: 1500 }, null, [
     flujoPedido,
   ]);
-const getMenuFormatted = () => {
-  const menus = menusData;
 
-  const menuFormatted = menus.map((m) => ({
+const getMenuFormatted = () => {
+  const menuFormatted = menusData.map((m) => ({
     body: `*${m.nombre}:* ${m.descripcion}\n*Precio: ${m.precio}*`,
   }));
+  console.log(menuFormatted);
   return menuFormatted;
 };
 
-module.exports = { flowPrincipal };
+module.exports = { flowPrincipal, getMenuFormatted };
