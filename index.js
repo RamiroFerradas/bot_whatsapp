@@ -1,6 +1,8 @@
 const express = require("express");
 const fs = require("fs");
 const chatBot = require("./app");
+const { join } = require("path");
+const { createReadStream } = require("fs");
 // const { chatBot } = require("./src/app");
 const app = express();
 
@@ -25,7 +27,15 @@ app.get("/menus", (req, res) => {
 const port = 3001;
 
 // Iniciar el servidor
+
+app.get("/get-qr", async (_, res) => {
+  const YOUR_PATH_QR = join(process.cwd(), `bot.qr.png`);
+  const fileStream = createReadStream(YOUR_PATH_QR);
+
+  res.writeHead(200, { "Content-Type": "image/png" });
+  fileStream.pipe(res);
+});
+
 app.listen(port, () => {
-  chatBot();
   console.log(`Servidor escuchando en el puerto ${port}`);
 });
