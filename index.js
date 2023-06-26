@@ -1,9 +1,10 @@
 const express = require("express");
 const fs = require("fs");
-const chatBot = require("./app");
 const { join } = require("path");
 const { createReadStream } = require("fs");
-// const { chatBot } = require("./src/app");
+const chatBot = require("./app");
+require("dotenv").config();
+
 const app = express();
 
 // Endpoint GET para obtener todos los menús
@@ -28,6 +29,17 @@ const port = 3001;
 
 // Iniciar el servidor
 
+const verificarAutenticacion = (req, res, next) => {
+  const token = req.headers.authorization;
+
+  // Verifica si el token es válido
+  if (token === process.env.TOKEN) {
+    next();
+  } else {
+    res.status(401).send("Acceso no autorizado");
+  }
+};
+
 app.get("/get-qr", async (_, res) => {
   const YOUR_PATH_QR = join(process.cwd(), `bot.qr.png`);
   const fileStream = createReadStream(YOUR_PATH_QR);
@@ -37,5 +49,6 @@ app.get("/get-qr", async (_, res) => {
 });
 
 app.listen(port, () => {
+  chatBot();
   console.log(`Servidor escuchando en el puerto ${port}`);
 });
