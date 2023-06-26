@@ -1,0 +1,20 @@
+{
+  "key": {
+    "remoteJid": "5493492686748@s.whatsapp.net",
+    "fromMe": false,
+    "id": "579028000CDD9B87EA27330E10F9358D",
+    "participant": null
+  },
+  "messageTimestamp": 1687726602,
+  "pushName": "Gise",
+  "broadcast": false,
+  "message": {
+    "conversation": "Pinto",
+    "messageContextInfo": {
+      "deviceListMetadata": "[DeviceListMetadata]",
+      "deviceListMetadataVersion": 2
+    }
+  },
+  "body": "Pinto",
+  "from": "5493492686748"
+}
