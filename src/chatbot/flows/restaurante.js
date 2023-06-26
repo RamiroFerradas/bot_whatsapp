@@ -1,6 +1,6 @@
 const { addKeyword } = require("@bot-whatsapp/bot");
 
-const menusData = require("../menus.json");
+const menusData = require("../../chatbot/menus.json");
 
 const flujoPedido = addKeyword(["pedir", "pedido"]);
 
