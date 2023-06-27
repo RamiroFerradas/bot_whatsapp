@@ -10,34 +10,24 @@ const { getInfoDolar } = require("../services/getDolar.js");
 const { getWeather } = require("../services/getWeather.js");
 const { generarMessageClima } = require("../utils/mensajesPersonalizados.js");
 const { flowClima } = require("./flows/clima.js");
+const { getInfoCrypto } = require("../services/getBtc.js");
 console.log(HOST);
+
+const adapterProvider = createProvider(BaileysProvider);
+const chatBot = async () => {
+  const adapterDB = new MockAdapter();
+  const adapterFlow = createFlow([flowClima]);
+
+  createBot({
+    flow: adapterFlow,
+    provider: adapterProvider,
+    database: adapterDB,
+  });
+  const BOTNAME = "BOTARDO";
+  // QRPortalWeb({ name: BOTNAME, port: 3005 });
+};
+
 //Automatizar mensajes
-// cron.schedule("00 08 * * *", async () => {
-// cron.schedule("00 08 * * *", async () => {
-//   try {
-//     const { city, region, temperaturaC, temperaturaF, clima } =
-//       await getWeather("rafaela");
-//     const messageCLima = generarMessageClima(
-//       "Ramiro",
-//       city,
-//       region,
-//       temperaturaC
-//     );
-//     console.log(messageCLima);
-
-//     const dolarInfo = await getInfoDolar();
-//     const climaMessage = `${messageCLima}\n`;
-//     const dolarMessage = `\nCompra: $${dolarInfo.compra}\nVenta: $${dolarInfo.venta}\n\n`;
-
-//     const message = `${climaMessage}Además, te informo sobre el estado del dólar:\n${dolarMessage}¡Que tengas un excelente día!`;
-
-//     await axios.post(`${HOST}/api/send-message-bot?id=${ID_RAMIRO}`, {
-//       message,
-//     });
-//   } catch (error) {
-//     console.error("Error al enviar la automatización:", error.message);
-//   }
-// });
 
 const automatizarMensajes = async (usuarios) => {
   try {
@@ -54,10 +44,13 @@ const automatizarMensajes = async (usuarios) => {
       );
 
       const dolarInfo = await getInfoDolar();
+      const cryptoInfo = await getInfoCrypto("btc");
+      console.log(cryptoInfo);
       const climaMessage = `${messageCLima}\n`;
-      const dolarMessage = `\nCompra: $${dolarInfo.compra}\nVenta: $${dolarInfo.venta}\n\n`;
+      const dolarMessage = `\nAdemás, te informo sobre el estado del dólar:\nCompra: *$${dolarInfo.compra}*\nVenta: *$${dolarInfo.venta}*.\n`;
+      const btcMessage = `\nEl precio actual de Bitcoin (BTC) es: *$${cryptoInfo.toLocaleString()} USD.*\n`;
 
-      const message = `${climaMessage}Además, te informo sobre el estado del dólar:\n${dolarMessage}¡Que tengas un excelente día!`;
+      const message = `${climaMessage}${dolarMessage} ${btcMessage}¡Que tengas un excelente día!,`;
 
       await axios.post(`${HOST}/api/send-message-bot?id=${id}`, {
         message,
@@ -87,19 +80,6 @@ cron.schedule("00 08 * * *", async () => {
     console.error("Error al ejecutar la automatización:", error.message);
   }
 });
-
-const adapterProvider = createProvider(BaileysProvider);
-const chatBot = async () => {
-  const adapterDB = new MockAdapter();
-  const adapterFlow = createFlow([flowClima]);
-  createBot({
-    flow: adapterFlow,
-    provider: adapterProvider,
-    database: adapterDB,
-  });
-  const BOTNAME = "BOTARDO";
-  // QRPortalWeb({ name: BOTNAME, port: 3005 });
-};
 module.exports = {
   chatBot,
   adapterProvider,

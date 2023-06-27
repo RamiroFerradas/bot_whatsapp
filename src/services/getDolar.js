@@ -1,9 +1,8 @@
+require("dotenv").config();
 const convert = require("xml-js");
 const axios = require("axios");
-const dotenv = require("dotenv");
 const { getDateTime } = require("../utils/getDateTime");
 const { formatNumber } = require("../utils/formatNumber");
-dotenv.config();
 
 const { DOLARSI_URL } = process.env;
 

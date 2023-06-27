@@ -95,12 +95,11 @@ const generarMessageClima = (name, city, region, temperaturaC) => {
   const mensajePersonalizado1 = obtenerMensajePersonalizadoDia(temperaturaC);
   const mensajePersonalizado2 = obtenerMensajeComoAbrigarse(temperaturaC);
 
-  const message = `¡Hola ${name}! Aquí está el pronóstico actual para ${city}, ${region}:
-Temperatura: ${temperaturaC}°C
+  const message = `¡Hola ${name}! Aquí está el pronóstico actual para *${city}, ${region}*:
+Temperatura: *${temperaturaC}°C*.
 ${mensajePersonalizado1}
 Recuerda abrigarte de la siguiente manera:
-${mensajePersonalizado2}
-¡Que tengas un excelente día!`;
+${mensajePersonalizado2}`;
 
   return message;
 };
