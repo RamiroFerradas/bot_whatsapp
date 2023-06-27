@@ -20,7 +20,8 @@ router.get("/menus", (req, res) => {
 // Middleware para verificar la autenticación
 
 router.get("/get-qr", verificarAutenticacion, (req, res) => {
-  const YOUR_PATH_QR = join(process.cwd(), `bot.qr.png`);
+  let botname = req.query.botname || "bot";
+  const YOUR_PATH_QR = join(process.cwd(), `${botname}.qr.png`);
   const fileStream = createReadStream(YOUR_PATH_QR);
 
   res.writeHead(200, { "Content-Type": "image/png" });

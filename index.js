@@ -1,5 +1,6 @@
 const app = require("./src/app");
-const { chatBot } = require("./src/chatbot/app");
+const { botardo } = require("./src/chatbot/app");
+const { main } = require("./src/chatbot/openia");
 const port = 3001;
 
 // Start server
@@ -11,12 +12,14 @@ app.listen(port, () => {
   console.log(`${conexionExitosaTexto}
 🚀 Escuchando en el puerto: \x1b[33m${port}\x1b[0m`);
 
-  chatBot()
+  botardo()
     .then(() => {
-      console.log(`🤖 Bot de ${whatsappText} \x1b[37mconectado\x1b[0m`);
+      console.log(
+        `🤖 Bot de ${whatsappText} \x1b[37mconectado\x1b[0m ==> Botardo`
+      );
     })
     .catch((error) => {
-      console.error("Error al ejecutar chatBot:", error);
+      console.error("Error al ejecutar chatBot ==> Botardo:", error);
     });
 });
 

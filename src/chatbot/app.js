@@ -11,12 +11,14 @@ const { getWeather } = require("../services/getWeather.js");
 const { generarMessageClima } = require("../utils/mensajesPersonalizados.js");
 const { flowClima } = require("./flows/clima.js");
 const { getInfoCrypto } = require("../services/getBtc.js");
-console.log(HOST);
+const { flujoCrypto, flujoBotones } = require("./flows/crypto.js");
 
-const adapterProvider = createProvider(BaileysProvider);
-const chatBot = async () => {
+const adapterProvider = createProvider(BaileysProvider, {
+  name: "botardo",
+});
+const botardo = async () => {
   const adapterDB = new MockAdapter();
-  const adapterFlow = createFlow([flowClima]);
+  const adapterFlow = createFlow([flowClima, flujoCrypto, flujoBotones]);
 
   createBot({
     flow: adapterFlow,
@@ -45,7 +47,6 @@ const automatizarMensajes = async (usuarios) => {
 
       const dolarInfo = await getInfoDolar();
       const cryptoInfo = await getInfoCrypto("btc");
-      console.log(cryptoInfo);
       const climaMessage = `${messageCLima}\n`;
       const dolarMessage = `\nAdemás, te informo sobre el estado del dólar:\nCompra: *$${dolarInfo.compra}*\nVenta: *$${dolarInfo.venta}*.\n`;
       const btcMessage = `\nEl precio actual de Bitcoin (BTC) es: *$${cryptoInfo.toLocaleString()} USD.*\n`;
@@ -81,6 +82,6 @@ cron.schedule("00 08 * * *", async () => {
   }
 });
 module.exports = {
-  chatBot,
+  botardo,
   adapterProvider,
 };
