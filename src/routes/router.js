@@ -59,7 +59,7 @@ router.get("/ping", (req, res) => {
 });
 
 //enviar ping solamente en produccion cada un minuto
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction = !process.env.HOST.includes("localhost");
 if (isProduction) {
   cron.schedule("* * * * *", async () => {
     try {
