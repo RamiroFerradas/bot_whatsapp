@@ -15,8 +15,6 @@ const flujoBienvenida = addKeyword([
   "hola",
   "ayuda",
   "help",
-  ",",
-  " ",
   "buen dia",
 ]).addAnswer(
   [

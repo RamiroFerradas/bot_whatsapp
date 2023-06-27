@@ -6,16 +6,12 @@ const {
   obtenerInformacionTelefono,
 } = require("../../services/getLocationPhoneNumber");
 
-console.log(respuesta_del_usuario, "variable ext");
-var respuesta_del_usuario;
-
 const flowClima = addKeyword([`quiero saber el clima`, `clima`]).addAnswer(
-  !respuesta_del_usuario ? "🙌 Hola por favor indicame la *ciudad*" : ``,
+  "🙌 Hola por favor indicame la *ciudad*",
 
-  { capture: respuesta_del_usuario ? false : true },
+  { capture: true },
   async (ctx, { flowDynamic }) => {
-    respuesta_del_usuario = ctx.body;
-    console.log(respuesta_del_usuario, "variable int");
+    const respuesta_del_usuario = ctx.body;
 
     const { city, region, temperaturaC, temperaturaF, clima } =
       await getWeather(respuesta_del_usuario);
@@ -35,7 +31,6 @@ const flowClima = addKeyword([`quiero saber el clima`, `clima`]).addAnswer(
 );
 const flowTiempo = addKeyword([
   "que clima hace",
-
   "temperatura",
   "como esta el dia",
   "hace calor",
