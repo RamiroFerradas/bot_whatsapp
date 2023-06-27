@@ -18,7 +18,7 @@ const flujoBienvenida = addKeyword([
   "buen dia",
 ]).addAnswer(
   [
-    `¡Hola! Soy tu asistente automático. Estoy aquí para ayudarte con algunas consultas comunes:\n`,
+    `¡Hola! Soy soy *BOTARDO* tu asistente automático. Estoy aquí para ayudarte con algunas consultas comunes:\n`,
     `- Si quieres saber el clima actual, simplemente pregúntame *¿Qué clima hace*" o cualquier variante relacionada como *¿Cómo está el día?* , *¿Hace calor?* , *¿Hace frio?* , *¿Como esta afuera?* .\n
     - Si quieres saber el clima actual, de una ciudad especifica simplemente escribeme *clima*,\n
   - Si estás interesado en el precio de Bitcoin (BTC), solo tienes que mencionar palabras clave como *btc* o *crypto*,\n
