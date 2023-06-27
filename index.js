@@ -2,7 +2,8 @@ require("dotenv").config();
 const app = require("./src/app");
 const { chatBot } = require("./src/chatbot/app");
 const port = 3001;
-const isProduction = process.env.NODE_ENV === "production";
+
+const isProduction = !process.env.HOST.includes("localhost");
 
 // Start server
 app.listen(port, () => {
