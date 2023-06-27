@@ -11,12 +11,14 @@ const { getWeather } = require("../services/getWeather.js");
 const { generarMessageClima } = require("../utils/mensajesPersonalizados.js");
 const { flowClima } = require("./flows/clima.js");
 const { getInfoCrypto } = require("../services/getBtc.js");
-const { flujoCrypto, flujoBotones } = require("./flows/crypto.js");
+const { flujoCrypto } = require("./flows/crypto.js");
+const { flujoBienvenida } = require("./flows/bienvenida.js");
 
 const adapterProvider = createProvider(BaileysProvider);
+adapterProvider.on("message", (ctx) => console.log(ctx));
 const chatBot = async () => {
   const adapterDB = new MockAdapter();
-  const adapterFlow = createFlow([flowClima, flujoCrypto, flujoBotones]);
+  const adapterFlow = createFlow([flowClima, flujoCrypto, flujoBienvenida]);
 
   createBot({
     flow: adapterFlow,
