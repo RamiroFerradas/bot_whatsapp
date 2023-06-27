@@ -51,7 +51,9 @@ const automatizarMensajes = async (usuarios) => {
       const dolarMessage = `\nAdemás, te informo sobre el estado del dólar:\nCompra: *$${dolarInfo.compra}*\nVenta: *$${dolarInfo.venta}*.\n`;
       const btcMessage = `\nEl precio actual de Bitcoin (BTC) es: *$${cryptoInfo.toLocaleString()} USD.*\n`;
 
-      const message = `${climaMessage}${dolarMessage} ${btcMessage}¡Que tengas un excelente día!,`;
+      const message = `${climaMessage}${dolarMessage} ${btcMessage}¡Que tengas un excelente día!\n
+      Si necesitas saber mis comandos escribe *ayuda*
+      `;
 
       await axios.post(`${HOST}/api/send-message-bot?id=${id}`, {
         message,
