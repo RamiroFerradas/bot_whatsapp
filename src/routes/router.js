@@ -23,7 +23,7 @@ router.get("/menus", (req, res) => {
 // Middleware para verificar la autenticación
 
 router.get("/get-qr", verificarAutenticacion, (req, res) => {
-  let botname = req.query.botname || "bot";
+  const botname = req.query.botname || "bot";
   const YOUR_PATH_QR = join(process.cwd(), `${botname}.qr.png`);
   const fileStream = createReadStream(YOUR_PATH_QR);
 
@@ -46,15 +46,27 @@ router.post("/send-message-bot", async (req, res) => {
 });
 
 router.get("/ping", (req, res) => {
-  res.send("Pong!");
+  // Generar una respuesta aleatoria
+  const responses = ["Pong!", "Hello!", "Hi there!", "¡Hola!", "Response"];
+  const randomResponse =
+    responses[Math.floor(Math.random() * responses.length)];
+
+  // Simular un tiempo de respuesta aleatorio
+  const randomDelay = Math.floor(Math.random() * 500) + 100;
+  setTimeout(() => {
+    res.send(randomResponse);
+  }, randomDelay);
 });
 
-cron.schedule("** ** * * *", async () => {
-  try {
-    await axios.get(`${HOST}/api/ping`);
-  } catch (error) {
-    console.error("Error al ejecutar la automatización:", error.message);
-  }
-});
-
+//enviar ping solamente en produccion cada un minuto
+const isProduction = process.env.NODE_ENV === "production";
+if (isProduction) {
+  cron.schedule("* * * * *", async () => {
+    try {
+      await axios.get(`${HOST}/api/ping`);
+    } catch (error) {
+      console.error("Error al ejecutar la automatización:", error.message);
+    }
+  });
+}
 module.exports = router;
