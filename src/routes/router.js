@@ -2,11 +2,12 @@ const express = require("express");
 const { join } = require("path");
 const { createReadStream } = require("fs");
 const { verificarAutenticacion } = require("./auth");
-const { adapterProvider } = require("../chatbot/app");
+// const { adapterProvider } = require("../chatbot/app");
 const { getInfoDolar } = require("../services/getDolar");
 const router = express.Router();
 
 const menusData = require("../chatbot/menus.json");
+const { adapterProvider } = require("../chatbot/app");
 
 router.get("/menus", (req, res) => {
   try {
