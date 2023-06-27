@@ -1,9 +1,12 @@
+require("dotenv").config();
 const express = require("express");
 const { join } = require("path");
 const { createReadStream } = require("fs");
 const { verificarAutenticacion } = require("./auth");
 // const { adapterProvider } = require("../chatbot/app");
-const { getInfoDolar } = require("../services/getDolar");
+const { HOST } = process.env;
+const cron = require("node-cron");
+const axios = require("axios");
 const router = express.Router();
 
 const menusData = require("../chatbot/menus.json");
@@ -39,6 +42,18 @@ router.post("/send-message-bot", async (req, res) => {
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ error: "Error al enviar el mensaje" });
+  }
+});
+
+router.get("/ping", (req, res) => {
+  res.send("Pong!");
+});
+
+cron.schedule("** ** * * *", async () => {
+  try {
+    await axios.get(`${HOST}/api/ping`);
+  } catch (error) {
+    console.error("Error al ejecutar la automatización:", error.message);
   }
 });
 
