@@ -60,7 +60,8 @@ router.get("/ping", (req, res) => {
 //enviar ping solamente en produccion cada un minuto
 const aplyDelay = !process.env.HOST.includes("localhost" || "railway");
 if (aplyDelay) {
-  cron.schedule("* * * * *", async () => {
+  cron.schedule("*/10 * * * *", async () => {
+    // Se ejecuta cada 10 minutos
     try {
       await axios.get(`${HOST}/api/ping`);
     } catch (error) {
@@ -68,4 +69,5 @@ if (aplyDelay) {
     }
   });
 }
+
 module.exports = router;

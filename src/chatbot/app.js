@@ -51,7 +51,7 @@ const chatBot = async () => {
 
 //Automatizar mensajes
 
-const automatizarMensajes = async (usuarios) => {
+const firstMessage = async (usuarios) => {
   try {
     for (const usuario of usuarios) {
       const { id, nombre, ciudad } = usuario;
@@ -86,7 +86,7 @@ const automatizarMensajes = async (usuarios) => {
 
 cron.schedule("00 08 * * *", async () => {
   try {
-    await automatizarMensajes(usuarios);
+    await firstMessage(usuarios);
   } catch (error) {
     console.error("Error al ejecutar la automatización:", error.message);
   }
@@ -109,6 +109,49 @@ cron.schedule("00 12 * * *", async () => {
     console.error("Error al ejecutar la automatización:", error.message);
   }
 });
+
+let lastDolarValues = null;
+const checkDolarChanges = async () => {
+  let message = "";
+  let hasChanges = false;
+  try {
+    const newDolarValues = await getInfoDolar();
+
+    const dolarMessage = `Compra: *$${newDolarValues.compra}*\nVenta: *$${newDolarValues.venta}*.`;
+    if (lastDolarValues) {
+      // Compara los valores actuales con los anteriores
+      if (newDolarValues.compra > lastDolarValues.compra) {
+        message = `💸🚀 El dólar blue ha subido.\n
+        ${dolarMessage}`;
+        hasChanges = true;
+      } else if (newDolarValues.compra < lastDolarValues.compra) {
+        message = `⏬ Dólar blue ha bajado.\n
+          ${dolarMessage}`;
+        hasChanges = true;
+      } else {
+        message = "El valor del dólar blue se mantiene sin cambios.";
+      }
+    }
+    if (hasChanges) {
+      for (const usuario of usuarios) {
+        await axios.post(`${HOST}/api/send-message-bot?id=${usuario.id}`, {
+          message,
+        });
+      }
+    }
+
+    console.log(message);
+    lastDolarValues = newDolarValues;
+  } catch (error) {
+    console.error(
+      "Error al obtener información del servicio de DolarSi:",
+      error.message
+    );
+  }
+};
+
+// Programa la tarea para ejecutarse cada minuto
+cron.schedule("* * * * *", checkDolarChanges);
 
 module.exports = {
   chatBot,
