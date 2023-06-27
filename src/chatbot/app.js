@@ -13,10 +13,8 @@ const { flowClima } = require("./flows/clima.js");
 const { getInfoCrypto } = require("../services/getBtc.js");
 const { flujoCrypto, flujoBotones } = require("./flows/crypto.js");
 
-const adapterProvider = createProvider(BaileysProvider, {
-  name: "botardo",
-});
-const botardo = async () => {
+const adapterProvider = createProvider(BaileysProvider);
+const chatBot = async () => {
   const adapterDB = new MockAdapter();
   const adapterFlow = createFlow([flowClima, flujoCrypto, flujoBotones]);
 
@@ -82,6 +80,6 @@ cron.schedule("00 08 * * *", async () => {
   }
 });
 module.exports = {
-  botardo,
+  chatBot,
   adapterProvider,
 };
