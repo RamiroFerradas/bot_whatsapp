@@ -113,3 +113,5 @@ package-lock.json
 seeders/
 
 *qr.png
+
+bot_sessions

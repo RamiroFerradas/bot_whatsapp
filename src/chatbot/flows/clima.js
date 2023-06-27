@@ -1,32 +1,63 @@
 const { addKeyword } = require("@bot-whatsapp/bot");
 const { flujoAgradecimiento } = require("./agradecimiento");
 const { getWeather } = require("../../services/getWeather");
+const { generarMessageClima } = require("../../utils/mensajesPersonalizados");
 const {
-  obtenerMensajePersonalizadoDia,
-  obtenerMensajeComoAbrigarse,
-  generarMessageClima,
-} = require("../../utils/mensajesPersonalizados");
+  obtenerInformacionTelefono,
+} = require("../../services/getLocationPhoneNumber");
 
-const flowClima = addKeyword([
+console.log(respuesta_del_usuario, "variable ext");
+var respuesta_del_usuario;
+
+const flowClima = addKeyword([`quiero saber el clima`, `clima`]).addAnswer(
+  !respuesta_del_usuario ? "🙌 Hola por favor indicame la *ciudad*" : ``,
+
+  { capture: respuesta_del_usuario ? false : true },
+  async (ctx, { flowDynamic }) => {
+    respuesta_del_usuario = ctx.body;
+    console.log(respuesta_del_usuario, "variable int");
+
+    const { city, region, temperaturaC, temperaturaF, clima } =
+      await getWeather(respuesta_del_usuario);
+    // console.log(ctx);
+    // console.log(ctx.body);
+    const message = generarMessageClima(
+      ctx.pushName,
+      city,
+      region,
+      temperaturaC
+    );
+
+    flowDynamic({ body: message });
+  },
+
+  flujoAgradecimiento
+);
+const flowTiempo = addKeyword([
   "que clima hace",
-  "clima",
+
   "temperatura",
   "como esta el dia",
   "hace calor",
   "hace frio",
   "como esta afuera",
+  "que clima hace?",
+
+  "temperatura?",
+  "como esta el dia?",
+  "hace calor?",
+  "hace frio?",
+  "como esta afuera?",
 ]).addAnswer(
-  "🙌 Hola por favor indicame la *ciudad*",
-
-  { capture: true },
-
+  "Ya te digo...",
+  null,
   async (ctx, { flowDynamic }) => {
-    const respuesta_del_usuario = ctx.body;
+    const { location } = await obtenerInformacionTelefono(ctx.from);
 
     const { city, region, temperaturaC, temperaturaF, clima } =
-      await getWeather(respuesta_del_usuario);
-    console.log(ctx);
-    console.log(ctx.message.messageContextInfo);
+      await getWeather(location);
+    // console.log(ctx);
+    // console.log(ctx.body);
     const message = generarMessageClima(
       ctx.pushName,
       city,
@@ -40,4 +71,4 @@ const flowClima = addKeyword([
   flujoAgradecimiento
 );
 
-module.exports = { flowClima };
+module.exports = { flowClima, flowTiempo };

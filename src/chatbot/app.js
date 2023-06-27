@@ -8,12 +8,25 @@ const axios = require("axios");
 const { getWeather } = require("../services/getWeather.js");
 const { generarMessageClima } = require("../utils/mensajesPersonalizados.js");
 const { getInfoCrypto } = require("../services/getBtc.js");
-const { flowClima } = require("./flows/clima.js");
+const { flowClima, flowTiempo } = require("./flows/clima.js");
 const { flujoCrypto } = require("./flows/crypto.js");
 const { flujoBienvenida } = require("./flows/bienvenida.js");
 const { flujoDolar } = require("./flows/dolar.js");
 const { getInfoDolar } = require("../services/getDolar.js");
 const { HOST, ID_RAMIRO, ID_GABRIEL } = process.env;
+
+const usuarios = [
+  {
+    id: ID_RAMIRO,
+    nombre: "Ramiro",
+    ciudad: "Rafaela",
+  },
+  {
+    id: ID_GABRIEL,
+    nombre: "Gabriel",
+    ciudad: "Salta",
+  },
+];
 
 const adapterProvider = createProvider(BaileysProvider);
 adapterProvider.on("message", (ctx) => console.log(ctx));
@@ -24,6 +37,7 @@ const chatBot = async () => {
     flujoCrypto,
     flujoBienvenida,
     flujoDolar,
+    flowTiempo,
   ]);
 
   createBot({
@@ -69,26 +83,33 @@ const automatizarMensajes = async (usuarios) => {
     console.error("Error al enviar la automatización:", error.message);
   }
 };
+
 cron.schedule("00 08 * * *", async () => {
   try {
-    const usuarios = [
-      {
-        id: ID_RAMIRO,
-        nombre: "Ramiro",
-        ciudad: "Rafaela",
-      },
-      {
-        id: ID_GABRIEL,
-        nombre: "Gabriel",
-        ciudad: "Salta",
-      },
-    ];
-
     await automatizarMensajes(usuarios);
   } catch (error) {
     console.error("Error al ejecutar la automatización:", error.message);
   }
 });
+
+cron.schedule("00 12 * * *", async () => {
+  const message = `¡Hola! Soy tu asistente automático. Estoy aquí para ayudarte con algunas consultas comunes:\n
+- Si quieres saber el clima actual, simplemente pregúntame *¿Qué clima hace?* o cualquier variante relacionada como *¿Cómo está el día?* , *¿Hace calor?* , *¿Hace frío?* , *¿Cómo está afuera?* .\n
+- Si estás interesado en el precio de Bitcoin (BTC), solo tienes que mencionar palabras clave como *btc* o *crypto*.\n
+- Si deseas conocer el valor del dólar blue, solo pregúntame por *dólar* o *usd*.\n
+¡Estoy aquí para brindarte información útil y responder a tus preguntas! Si necesitas algo más, no dudes en decírmelo. 😊`;
+
+  try {
+    for (const usuario of usuarios) {
+      await axios.post(`${HOST}/api/send-message-bot?id=${usuario.id}`, {
+        message,
+      });
+    }
+  } catch (error) {
+    console.error("Error al ejecutar la automatización:", error.message);
+  }
+});
+
 module.exports = {
   chatBot,
   adapterProvider,

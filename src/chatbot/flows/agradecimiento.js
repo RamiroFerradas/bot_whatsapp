@@ -6,6 +6,8 @@ const flujoAgradecimiento = addKeyword([
   "saludos",
   "gracias!",
   "chau",
-]).addAnswer("Hasta luego !");
+]).addAnswer(
+  "¡De nada! Ha sido un placer ayudarte. Que tengas un excelente día. 😊 ¡Hasta luego!"
+);
 
 module.exports = { flujoAgradecimiento };

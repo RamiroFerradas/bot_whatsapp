@@ -35,9 +35,8 @@ router.post("/send-message-bot", async (req, res) => {
   try {
     const { id } = req.query;
     const { message } = req.body;
-    console.log(message);
+
     await adapterProvider.sendText(id, message);
-    console.log("Mensaje enviado mediante método POST:", message);
     res.send({ data: "enviado!" });
   } catch (error) {
     console.error(error.message);

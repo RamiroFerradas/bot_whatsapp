@@ -3,11 +3,11 @@ const { getInfoDolar } = require("../../services/getDolar");
 const { flujoAgradecimiento } = require("./agradecimiento");
 
 const flujoDolar = addKeyword(["dolar", "usd", "dolar blue"]).addAnswer(
-  `El precio actual del dolar bluees :`,
+  `El precio actual del dolar blue es :`,
   null,
   async (ctx, { flowDynamic }) => {
     const dolarInfo = await getInfoDolar();
-    const dolarMessage = `\nAdemás, te informo sobre el estado del dólar:\nCompra: *$${dolarInfo.compra}*\nVenta: *$${dolarInfo.venta}*.\n`;
+    const dolarMessage = `Compra: *$${dolarInfo.compra}*\nVenta: *$${dolarInfo.venta}*.`;
     flowDynamic([{ body: dolarMessage }]);
   },
   // null,
