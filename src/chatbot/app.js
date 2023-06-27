@@ -5,20 +5,26 @@ const BaileysProvider = require("@bot-whatsapp/provider/baileys");
 const MockAdapter = require("@bot-whatsapp/database/mock");
 const cron = require("node-cron");
 const axios = require("axios");
-const { getInfoDolar } = require("../services/getDolar.js");
 const { getWeather } = require("../services/getWeather.js");
 const { generarMessageClima } = require("../utils/mensajesPersonalizados.js");
-const { flowClima } = require("./flows/clima.js");
 const { getInfoCrypto } = require("../services/getBtc.js");
+const { flowClima } = require("./flows/clima.js");
 const { flujoCrypto } = require("./flows/crypto.js");
 const { flujoBienvenida } = require("./flows/bienvenida.js");
+const { flujoDolar } = require("./flows/dolar.js");
+const { getInfoDolar } = require("../services/getDolar.js");
 const { HOST, ID_RAMIRO, ID_GABRIEL } = process.env;
 
 const adapterProvider = createProvider(BaileysProvider);
 adapterProvider.on("message", (ctx) => console.log(ctx));
 const chatBot = async () => {
   const adapterDB = new MockAdapter();
-  const adapterFlow = createFlow([flowClima, flujoCrypto, flujoBienvenida]);
+  const adapterFlow = createFlow([
+    flowClima,
+    flujoCrypto,
+    flujoBienvenida,
+    flujoDolar,
+  ]);
 
   createBot({
     flow: adapterFlow,
