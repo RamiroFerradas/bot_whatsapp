@@ -4,7 +4,6 @@ import { chatBot } from "./src/chatbot/app";
 require("dotenv").config();
 const { HOST, PORT } = process.env;
 const port = PORT || 3001;
-
 const isProduction = !HOST || !HOST.includes("localhost");
 
 // Start server
