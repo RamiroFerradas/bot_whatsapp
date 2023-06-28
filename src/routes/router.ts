@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 import { join } from "path";
 import { createReadStream } from "fs";
-import cron from "node-cron";
+var cron = require("node-cron");
 import axios from "axios";
 
 require("dotenv").config();
