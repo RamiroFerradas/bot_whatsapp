@@ -3,7 +3,7 @@ import { Menu } from "../../models/Menu";
 
 var { addKeyword } = require("@bot-whatsapp/bot");
 
-const menusData = require("../menus.json");
+const menusData = require("../../json/menus.json");
 
 export const flujoPedido = addKeyword(["pedir", "pedido"]);
 
