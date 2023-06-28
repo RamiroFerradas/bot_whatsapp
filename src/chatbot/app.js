@@ -56,18 +56,35 @@ const chatBot = async () => {
 
 //Automatizar mensajes
 
-cron.schedule("00 08 * * *", () => {
-  firstMessage(usuarios);
-});
+// Configuración de la diferencia horaria para Argentina (GMT-3)
+const timeZone = "America/Buenos_Aires";
 
-cron.schedule("00 12 * * *", () => {
-  secondMessage(usuarios);
-});
+// Programa la tarea para ejecutarse a las 08:00 AM (horario de Argentina)
+cron.schedule(
+  "00 08 * * *",
+  () => {
+    firstMessage(usuarios);
+  },
+  { timeZone }
+);
 
-// Programa la tarea para ejecutarse cada minuto
-cron.schedule("* * * * *", () => {
-  checkDolarChanges(usuarios);
-});
+// Programa la tarea para ejecutarse a las 12:00 PM (horario de Argentina)
+cron.schedule(
+  "00 12 * * *",
+  () => {
+    secondMessage(usuarios);
+  },
+  { timeZone }
+);
+
+// Programa la tarea para ejecutarse cada minuto (horario de Argentina)
+cron.schedule(
+  "* * * * *",
+  () => {
+    checkDolarChanges(usuarios);
+  },
+  { timeZone }
+);
 
 module.exports = {
   chatBot,
