@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "pre-copy": "cd .. && npm run copy.lib base-baileys-memory",
-    "start": "node dist/index.js",
+    "pre-copy": "cd .. && npm run  copy.lib base-baileys-memory",
+    "start": "node-dev index.ts",
     "dev": "node-dev index.ts"
   },
   "keywords": [],
