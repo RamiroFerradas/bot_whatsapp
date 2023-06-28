@@ -38,10 +38,10 @@ const usuarios: User[] = [
     ciudad: "Rafaela",
   },
 ];
-const adapterProvider = createProvider(BaileysProvider);
+export const adapterProvider = createProvider(BaileysProvider);
 adapterProvider.on("message", (ctx: ChatContext) => console.log(ctx.body));
 
-let chatBot = async () => {
+export const chatBot = async () => {
   const adapterDB = new MockAdapter();
   const adapterFlow = createFlow([
     flowClima,
@@ -90,8 +90,3 @@ cron.schedule(
   },
   { timeZone }
 );
-
-module.exports = {
-  chatBot,
-  adapterProvider,
-};
