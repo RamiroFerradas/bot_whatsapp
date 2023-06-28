@@ -6,7 +6,7 @@
   "scripts": {
     "pre-copy": "cd .. && npm run  copy.lib base-baileys-memory",
     "build": "tsc",
-    "start": "node build/index.js",
+    "start": "tsc && node build/index.js",
     "dev": "ts-node-dev index.ts"
   },
   "keywords": [],
