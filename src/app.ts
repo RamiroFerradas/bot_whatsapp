@@ -40,4 +40,4 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   res.status(status).send(message);
 });
 
-module.exports = app;
+export default app;

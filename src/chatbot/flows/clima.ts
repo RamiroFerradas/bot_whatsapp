@@ -2,8 +2,8 @@ import { ChatContext } from "../../models/ChatContext";
 import { getWeather } from "../../services";
 import { generarMessageClima } from "../../utils";
 
-var { addKeyword } = require("@bot-whatsapp/bot");
-var { flujoAgradecimiento } = require("./agradecimiento");
+const { addKeyword } = require("@bot-whatsapp/bot");
+const { flujoAgradecimiento } = require("./agradecimiento");
 const {
   obtenerInformacionTelefono,
 } = require("../../services/getLocationPhoneNumber");

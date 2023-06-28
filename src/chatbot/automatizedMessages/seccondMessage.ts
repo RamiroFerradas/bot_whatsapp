@@ -1,5 +1,6 @@
 const axios = require("axios");
-
+require("dotenv").config();
+const { HOST } = process.env;
 import { User } from "../../models/User";
 
 export const secondMessage = async (usuarios: User[]) => {
