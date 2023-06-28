@@ -51,7 +51,7 @@ const flowTiempo = addKeyword([
 
     const { city, region, temperaturaC, temperaturaF, clima } =
       await getWeather(location);
-    // console.log(ctx);
+    console.log(ctx);
     // console.log(ctx.body);
     const message = generarMessageClima(
       ctx.pushName,

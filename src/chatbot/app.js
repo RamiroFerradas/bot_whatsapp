@@ -5,29 +5,29 @@ const QRPortalWeb = require("@bot-whatsapp/portal");
 const BaileysProvider = require("@bot-whatsapp/provider/baileys");
 const MockAdapter = require("@bot-whatsapp/database/mock");
 const cron = require("node-cron");
-const { flowClima, flowTiempo } = require("./flows/clima.js");
-const { flujoCrypto } = require("./flows/crypto.js");
-const { flujoBienvenida } = require("./flows/bienvenida.js");
-const { flujoDolar } = require("./flows/dolar.js");
 const {
   checkDolarChanges,
   firstMessage,
   secondMessage,
-} = require("./automatizedMessages.js");
+} = require("./automatizedMessages");
+const { flowClima, flowTiempo } = require("./flows/clima");
+const { flujoCrypto } = require("./flows/crypto");
+const { flujoDolar } = require("./flows/dolar");
+const { flujoBienvenida } = require("./flows/bienvenida");
 
 const usuarios = [
   {
-    id: ID_RAMIRO,
+    id: ID_RAMIRO || "",
     nombre: "Ramiro",
     ciudad: "Rafaela",
   },
   {
-    id: ID_GABRIEL,
+    id: ID_GABRIEL || "",
     nombre: "Gabriel",
     ciudad: "Salta",
   },
   {
-    id: ID_BUGGA,
+    id: ID_BUGGA || "",
     nombre: "Matias",
     ciudad: "Rafaela",
   },
@@ -35,6 +35,7 @@ const usuarios = [
 
 const adapterProvider = createProvider(BaileysProvider);
 adapterProvider.on("message", (ctx) => console.log(ctx));
+
 const chatBot = async () => {
   const adapterDB = new MockAdapter();
   const adapterFlow = createFlow([
@@ -50,7 +51,7 @@ const chatBot = async () => {
     provider: adapterProvider,
     database: adapterDB,
   });
-  const BOTNAME = "BOTARDO";
+  // const BOTNAME = "BOTARDO";
   // QRPortalWeb({ name: BOTNAME, port: 3005 });
 };
 
@@ -61,7 +62,7 @@ const timeZone = "America/Buenos_Aires";
 
 // Programa la tarea para ejecutarse a las 08:00 AM (horario de Argentina)
 cron.schedule(
-  "00 08 * * *",
+  "00 11 * * *",
   () => {
     firstMessage(usuarios);
   },
@@ -70,7 +71,7 @@ cron.schedule(
 
 // Programa la tarea para ejecutarse a las 12:00 PM (horario de Argentina)
 cron.schedule(
-  "00 12 * * *",
+  "00 15 * * *",
   () => {
     secondMessage(usuarios);
   },
