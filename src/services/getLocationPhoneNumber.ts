@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const apiKey = process.env.NUMVERIFY_APIKEY;
 
-async function obtenerInformacionTelefono(numeroTelefono) {
+export async function obtenerInformacionTelefono(numeroTelefono: string) {
   const apiUrl = `http://apilayer.net/api/validate?access_key=${apiKey}&number=${numeroTelefono}`;
 
   try {
@@ -14,5 +14,3 @@ async function obtenerInformacionTelefono(numeroTelefono) {
     throw error;
   }
 }
-
-module.exports = { obtenerInformacionTelefono };

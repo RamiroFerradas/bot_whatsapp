@@ -60,7 +60,7 @@ async function main() {
       prompt: "Hello world",
     });
     console.log(completion.data.choices[0].text);
-  } catch (error) {
+  } catch (error: any) {
     if (error.response) {
       console.log(error.response.status);
       console.log(error.response.data);

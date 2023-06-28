@@ -1,6 +1,6 @@
 const { WEATHER_API } = process.env;
 
-async function getWeather(ciudad, name) {
+export async function getWeather(ciudad: string) {
   const url = `http://api.weatherapi.com/v1/current.json?key=${WEATHER_API}&q=${ciudad}&aqi=no`;
 
   try {
@@ -18,7 +18,7 @@ async function getWeather(ciudad, name) {
     const clima = data.current.condition.text;
 
     return { temperaturaC, temperaturaF, city, region, clima };
-  } catch (error) {
+  } catch (error: any) {
     console.log("Error al obtener los datos del clima:", error.message);
 
     const errorMessage =
@@ -29,5 +29,3 @@ async function getWeather(ciudad, name) {
     };
   }
 }
-
-module.exports = { getWeather };

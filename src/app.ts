@@ -1,3 +1,5 @@
+import { NextFunction, Request, Response } from "express";
+
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
@@ -16,7 +18,7 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 
 // CORS
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.header(
@@ -31,7 +33,7 @@ app.use((req, res, next) => {
 app.use("/api", router);
 
 // Error handling middleware
-app.use((err, req, res, next) => {
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   const status = err.status || 500;
   const message = err.message || err;
   console.error(err);

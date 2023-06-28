@@ -1,3 +1,18 @@
+import { ChatContext } from "../models/ChatContext";
+import { User } from "../models/User";
+import {
+  checkDolarChanges,
+  firstMessage,
+  secondMessage,
+} from "./automatizedMessages";
+import {
+  flowClima,
+  flowTiempo,
+  flujoBienvenida,
+  flujoCrypto,
+  flujoDolar,
+} from "./flows";
+
 require("dotenv").config();
 const { ID_RAMIRO, ID_GABRIEL, ID_BUGGA } = process.env;
 const { createBot, createProvider, createFlow } = require("@bot-whatsapp/bot");
@@ -5,38 +20,28 @@ const QRPortalWeb = require("@bot-whatsapp/portal");
 const BaileysProvider = require("@bot-whatsapp/provider/baileys");
 const MockAdapter = require("@bot-whatsapp/database/mock");
 const cron = require("node-cron");
-const {
-  checkDolarChanges,
-  firstMessage,
-  secondMessage,
-} = require("./automatizedMessages");
-const { flowClima, flowTiempo } = require("./flows/clima");
-const { flujoCrypto } = require("./flows/crypto");
-const { flujoDolar } = require("./flows/dolar");
-const { flujoBienvenida } = require("./flows/bienvenida");
 
-const usuarios = [
+const usuarios: User[] = [
   {
-    id: ID_RAMIRO || "",
+    id: process.env.ID_RAMIRO || "",
     nombre: "Ramiro",
     ciudad: "Rafaela",
   },
   {
-    id: ID_GABRIEL || "",
+    id: process.env.ID_GABRIEL || "",
     nombre: "Gabriel",
     ciudad: "Salta",
   },
   {
-    id: ID_BUGGA || "",
+    id: process.env.ID_BUGGA || "",
     nombre: "Matias",
     ciudad: "Rafaela",
   },
 ];
-
 const adapterProvider = createProvider(BaileysProvider);
-adapterProvider.on("message", (ctx) => console.log(ctx));
+adapterProvider.on("message", (ctx: ChatContext) => console.log(ctx.body));
 
-const chatBot = async () => {
+let chatBot = async () => {
   const adapterDB = new MockAdapter();
   const adapterFlow = createFlow([
     flowClima,
@@ -68,7 +73,6 @@ cron.schedule(
   },
   { timeZone }
 );
-
 // Programa la tarea para ejecutarse a las 12:00 PM (horario de Argentina)
 cron.schedule(
   "00 15 * * *",

@@ -1,16 +1,24 @@
-const { addKeyword } = require("@bot-whatsapp/bot");
-const { flujoAgradecimiento } = require("./agradecimiento");
-const { getWeather } = require("../../services/getWeather");
-const { generarMessageClima } = require("../../utils/mensajesPersonalizados");
+import { ChatContext } from "../../models/ChatContext";
+import { getWeather } from "../../services";
+import { generarMessageClima } from "../../utils";
+
+var { addKeyword } = require("@bot-whatsapp/bot");
+var { flujoAgradecimiento } = require("./agradecimiento");
 const {
   obtenerInformacionTelefono,
 } = require("../../services/getLocationPhoneNumber");
 
-const flowClima = addKeyword([`quiero saber el clima`, `clima`]).addAnswer(
+export const flowClima = addKeyword([
+  `quiero saber el clima`,
+  `clima`,
+]).addAnswer(
   "🙌 Hola por favor indicame la *ciudad*",
 
   { capture: true },
-  async (ctx, { flowDynamic }) => {
+  async (
+    ctx: ChatContext,
+    { flowDynamic }: { flowDynamic: (data: any) => void }
+  ) => {
     const respuesta_del_usuario = ctx.body;
 
     const { city, region, temperaturaC, temperaturaF, clima } =
@@ -29,7 +37,7 @@ const flowClima = addKeyword([`quiero saber el clima`, `clima`]).addAnswer(
 
   flujoAgradecimiento
 );
-const flowTiempo = addKeyword([
+export const flowTiempo = addKeyword([
   "que clima hace",
   "temperatura",
   "como esta el dia",
@@ -46,7 +54,10 @@ const flowTiempo = addKeyword([
 ]).addAnswer(
   "Ya te digo...",
   null,
-  async (ctx, { flowDynamic }) => {
+  async (
+    ctx: ChatContext,
+    { flowDynamic }: { flowDynamic: (data: any) => void }
+  ) => {
     const { location } = await obtenerInformacionTelefono(ctx.from);
 
     const { city, region, temperaturaC, temperaturaF, clima } =
@@ -65,5 +76,3 @@ const flowTiempo = addKeyword([
 
   flujoAgradecimiento
 );
-
-module.exports = { flowClima, flowTiempo };

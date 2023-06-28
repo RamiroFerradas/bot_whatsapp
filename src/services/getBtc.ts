@@ -1,7 +1,7 @@
 const axios = require("axios");
 require("dotenv").config();
 const { COINMARKETCAP_APIKEY, COINMARKETCAP_URL } = process.env;
-async function getInfoCrypto(symbol) {
+export async function getInfoCrypto(symbol:string) {
   try {
     const response = await axios.get(COINMARKETCAP_URL, {
       headers: {
@@ -26,7 +26,7 @@ async function getInfoCrypto(symbol) {
       console.log("Error al obtener el precio de la criptomoneda.");
       return null;
     }
-  } catch (error) {
+  } catch (error:any) {
     console.log(
       "Error al realizar la solicitud a CoinMarketCap:",
       error.message
@@ -35,4 +35,3 @@ async function getInfoCrypto(symbol) {
   }
 }
 
-module.exports = { getInfoCrypto };

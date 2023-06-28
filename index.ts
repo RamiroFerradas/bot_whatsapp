@@ -1,12 +1,12 @@
 require("dotenv").config();
-const app = require("./src/app");
-const { chatBot } = require("./src/chatbot/app");
-const port = process.env.PORT || 3001;
-
-const isProduction = !process.env.HOST.includes("localhost");
+const server = require("./src/app");
+let { HOST, PORT } = process.env;
+const port = PORT || 3001;
+let { chatBot } = require("./src/chatbot/app.ts");
+const isProduction = !HOST || !HOST.includes("localhost");
 
 // Start server
-app.listen(port, () => {
+server.listen(port, () => {
   const whatsappText = "\x1b[32mWhatsApp\x1b[35m";
   const conexionExitosaTexto =
     "✨ \x1b[35m¡Conexión exitosa! El servidor está listo para brillar ✨\x1b[0m";
@@ -20,8 +20,8 @@ app.listen(port, () => {
     .then(() => {
       console.log(`🤖 Bot de ${whatsappText} \x1b[37mconectado\x1b[0m`);
     })
-    .catch((error) => {
-      console.error("Error al ejecutar chatBot:", error);
+    .catch((error: any) => {
+      console.error("Error al ejecutar chatBot:", error.message);
     });
 });
 

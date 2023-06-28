@@ -1,6 +1,6 @@
-const { addKeyword } = require("@bot-whatsapp/bot");
+var { addKeyword } = require("@bot-whatsapp/bot");
 
-const flujoAgradecimiento = addKeyword([
+export const flujoAgradecimiento = addKeyword([
   "gracias",
   "adios",
   "saludos",
@@ -9,5 +9,3 @@ const flujoAgradecimiento = addKeyword([
 ]).addAnswer(
   "¡De nada! Ha sido un placer ayudarte. Que tengas un excelente día. 😊 ¡Hasta luego!"
 );
-
-module.exports = { flujoAgradecimiento };

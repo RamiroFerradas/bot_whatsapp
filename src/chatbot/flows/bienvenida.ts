@@ -1,7 +1,7 @@
-const { addKeyword } = require("@bot-whatsapp/bot");
-const { flujoAgradecimiento } = require("./agradecimiento");
+var { addKeyword } = require("@bot-whatsapp/bot");
+var { flujoAgradecimiento } = require("./agradecimiento");
 
-const mensajeFlujoBienvenida = `¡Hola! Soy tu asistente automático. Estoy aquí para ayudarte con algunas consultas comunes:
+export const mensajeFlujoBienvenida = `¡Hola! Soy tu asistente automático. Estoy aquí para ayudarte con algunas consultas comunes:
 
 - Si quieres saber el clima actual, simplemente pregúntame "¿Qué clima hace?" o cualquier variante relacionada como "¿Cómo está el día?".
 - Si estás interesado en el precio de las criptomonedas, como Bitcoin (BTC) o Ethereum (ETH), solo tienes que mencionar palabras clave como "btc" o "crypto".
@@ -9,9 +9,7 @@ const mensajeFlujoBienvenida = `¡Hola! Soy tu asistente automático. Estoy aqu�
 
 ¡Estoy aquí para brindarte información útil y responder a tus preguntas! Si necesitas algo más, no dudes en decírmelo. 😊`;
 
-module.exports = { mensajeFlujoBienvenida };
-
-const flujoBienvenida = addKeyword([
+export const flujoBienvenida = addKeyword([
   "hola",
   "ayuda",
   "help",
@@ -21,8 +19,8 @@ const flujoBienvenida = addKeyword([
     `¡Hola! Soy soy *BOTARDO* tu asistente automático. Estoy aquí para ayudarte con algunas consultas comunes:\n`,
     `- Si quieres saber el clima actual, simplemente pregúntame *¿Qué clima hace*" o cualquier variante relacionada como *¿Cómo está el día?* , *¿Hace calor?* , *¿Hace frio?* , *¿Como esta afuera?* .\n
     - Si quieres saber el clima actual, de una ciudad especifica simplemente escribeme *clima*,\n
-  - Si estás interesado en el precio de Bitcoin (BTC), solo tienes que mencionar palabras clave como *btc* o *crypto*,\n
-  - Si deseas conocer el valor del dolar blue, solo pregúntame por *dolar* o *usd*.\n`,
+    - Si estás interesado en el precio de Bitcoin (BTC), solo tienes que mencionar palabras clave como *btc* o *crypto*,\n
+    - Si deseas conocer el valor del dolar blue, solo pregúntame por *dolar* o *usd*.\n`,
     `¡Estoy aquí para brindarte información útil y responder a tus preguntas! Si necesitas algo más, no dudes en decírmelo. 😊`,
   ],
   null,
@@ -30,4 +28,4 @@ const flujoBienvenida = addKeyword([
   flujoAgradecimiento
 );
 
-module.exports = { flujoBienvenida };
+// module.exports = { mensajeFlujoBienvenida };

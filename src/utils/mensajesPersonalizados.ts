@@ -1,4 +1,4 @@
-const obtenerMensajePersonalizadoDia = (temperaturaC) => {
+export const obtenerMensajePersonalizadoDia = (temperaturaC: number) => {
   const mensajesCalor = [
     "☀️ Disfruta del cálido clima al aire libre.",
     "🌞 ¡El sol está brillando! Aprovecha el día.",
@@ -52,7 +52,7 @@ const obtenerMensajePersonalizadoDia = (temperaturaC) => {
   return mensajes[indiceAleatorio];
 };
 
-const obtenerMensajeComoAbrigarse = (temperaturaC) => {
+export const obtenerMensajeComoAbrigarse = (temperaturaC: number) => {
   const consejosCalor = [
     "🔥 Lleva ropa ligera y transpirable para mantenerte fresco.",
     "🧴 Aplica protector solar para protegerte de los rayos del sol.",
@@ -91,7 +91,12 @@ const obtenerMensajeComoAbrigarse = (temperaturaC) => {
   return consejos[indiceAleatorio];
 };
 
-const generarMessageClima = (name, city, region, temperaturaC) => {
+export const generarMessageClima = (
+  name: string,
+  city: string,
+  region: string,
+  temperaturaC: number
+) => {
   const mensajePersonalizado1 = obtenerMensajePersonalizadoDia(temperaturaC);
   const mensajePersonalizado2 = obtenerMensajeComoAbrigarse(temperaturaC);
 
@@ -101,10 +106,4 @@ ${mensajePersonalizado1}
 ${mensajePersonalizado2}`;
 
   return message;
-};
-
-module.exports = {
-  obtenerMensajePersonalizadoDia,
-  obtenerMensajeComoAbrigarse,
-  generarMessageClima,
 };
