@@ -1,7 +1,6 @@
 import { ChatContext } from "../../models/ChatContext";
 import { getWeather, obtenerInformacionTelefono } from "../../services";
 import { generarMessageClima } from "../../utils";
-import { flujoAgradecimiento } from "./agradecimiento";
 
 const { addKeyword } = require("@bot-whatsapp/bot");
 
@@ -29,9 +28,7 @@ export const flowClima = addKeyword([
     );
 
     flowDynamic({ body: message });
-  },
-
-  flujoAgradecimiento
+  }
 );
 export const flowTiempo = addKeyword([
   "que clima hace",
@@ -67,7 +64,7 @@ export const flowTiempo = addKeyword([
     );
 
     flowDynamic({ body: message });
-  },
-
-  flujoAgradecimiento
+    if (ctx.body === "gracias") {
+    }
+  }
 );

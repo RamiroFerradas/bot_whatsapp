@@ -1,6 +1,5 @@
 import { ChatContext } from "../../models/ChatContext";
 import { getInfoDolar } from "../../services";
-import { flujoAgradecimiento } from "./agradecimiento";
 
 const { addKeyword } = require("@bot-whatsapp/bot");
 
@@ -16,6 +15,5 @@ export const flujoDolar = addKeyword(["dolar", "usd", "dolar blue"]).addAnswer(
     Venta: *$${dolarInfo.venta}*.`;
     const data = [{ body: dolarMessage }];
     flowDynamic(data);
-  },
-  [flujoAgradecimiento]
+  }
 );

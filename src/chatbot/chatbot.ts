@@ -2,6 +2,7 @@ import { ChatContext } from "../models/ChatContext";
 import {
   flowClima,
   flowTiempo,
+  flujoAgradecimiento,
   flujoBienvenida,
   flujoCreador,
   flujoCrypto,
@@ -11,8 +12,11 @@ import {
 const { createBot, createProvider, createFlow } = require("@bot-whatsapp/bot");
 const BaileysProvider = require("@bot-whatsapp/provider/baileys");
 const MockAdapter = require("@bot-whatsapp/database/mock");
+const QRPortalWeb = require("@bot-whatsapp/portal");
 
-export const adapterProvider = createProvider(BaileysProvider);
+export const adapterProvider = createProvider(BaileysProvider, {
+  // name: "bot",
+});
 adapterProvider.on("message", (ctx: ChatContext) => console.log(ctx.body));
 
 export const chatBot = async () => {
@@ -24,6 +28,7 @@ export const chatBot = async () => {
     flujoDolar,
     flowTiempo,
     flujoCreador,
+    flujoAgradecimiento,
   ]);
 
   createBot({
@@ -31,6 +36,6 @@ export const chatBot = async () => {
     provider: adapterProvider,
     database: adapterDB,
   });
-  // const BOTNAME = "BOTARDO";
-  // QRPortalWeb({ name: BOTNAME, port: 3005 });
+  // const BOTNAME = "BOTARDO2";
+  // QRPortalWeb({ name: BOTNAME, port: 4005 });
 };

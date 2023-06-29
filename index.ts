@@ -1,5 +1,5 @@
 import app from "./src/app";
-import { chatBot } from "./src/chatbot/app";
+import { chatBot } from "./src/chatbot/chatbot";
 import { automatizedFunctions } from "./src/chatbot/automatizedMessages";
 const { HOST, PORT } = process.env;
 const port = PORT || 3001;

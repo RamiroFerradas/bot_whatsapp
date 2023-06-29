@@ -78,6 +78,7 @@ export const automatizedFunctions = async () => {
       timezone: "America/Buenos_Aires",
     }
   );
+
   cron.schedule(
     "45 23 * * *",
     () => {

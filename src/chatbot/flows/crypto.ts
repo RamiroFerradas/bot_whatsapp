@@ -1,6 +1,5 @@
 import { ChatContext } from "../../models/ChatContext";
 import { getInfoCrypto } from "../../services";
-import { flujoAgradecimiento } from "./agradecimiento";
 
 const { addKeyword } = require("@bot-whatsapp/bot");
 
@@ -15,6 +14,5 @@ export const flujoCrypto = addKeyword(["btc", "eth", "crypto"]).addAnswer(
     const btcMessage = `*$${cryptoInfo.toLocaleString()} USD.*`;
     const data = [{ body: btcMessage }];
     flowDynamic(data);
-  },
-  [flujoAgradecimiento]
+  }
 );

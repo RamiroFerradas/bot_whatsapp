@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import { join } from "path";
 import { createReadStream } from "fs";
 import axios from "axios";
-import { adapterProvider } from "../chatbot/app";
+import { adapterProvider } from "../chatbot/chatbot";
 import { verificarAutenticacion } from "./auth";
 const cron = require("node-cron");
 
@@ -18,7 +18,7 @@ router.get("/get-qr", verificarAutenticacion, (req: Request, res: Response) => {
   res.writeHead(200, { "Content-Type": "image/png" });
   fileStream.pipe(res);
 });
-
+console.log(adapterProvider);
 router.post("/send-message-bot", async (req: Request, res: Response) => {
   try {
     const { id } = req.query;
