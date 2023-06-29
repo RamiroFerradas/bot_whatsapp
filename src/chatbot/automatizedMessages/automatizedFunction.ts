@@ -25,11 +25,11 @@ const usuarios: User[] = [
     nombre: "Matias",
     ciudad: "Rafaela",
   },
-  // {
-  //   id: ID_SANTI || "",
-  //   nombre: "Santiago",
-  //   ciudad: "Buenos aires",
-  // },
+  {
+    id: ID_SANTI || "",
+    nombre: "Santiago",
+    ciudad: "Buenos aires",
+  },
 ];
 
 export const automatizedFunctions = async () => {
