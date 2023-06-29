@@ -1,12 +1,9 @@
 import { ChatContext } from "../../models/ChatContext";
-import { getWeather } from "../../services";
+import { getWeather, obtenerInformacionTelefono } from "../../services";
 import { generarMessageClima } from "../../utils";
+import { flujoAgradecimiento } from "./agradecimiento";
 
 const { addKeyword } = require("@bot-whatsapp/bot");
-const { flujoAgradecimiento } = require("./agradecimiento");
-const {
-  obtenerInformacionTelefono,
-} = require("../../services/getLocationPhoneNumber");
 
 export const flowClima = addKeyword([
   `quiero saber el clima`,
@@ -23,8 +20,7 @@ export const flowClima = addKeyword([
 
     const { city, region, temperaturaC, temperaturaF, clima } =
       await getWeather(respuesta_del_usuario);
-    // console.log(ctx);
-    // console.log(ctx.body);
+
     const message = generarMessageClima(
       ctx.pushName,
       city,
@@ -62,8 +58,7 @@ export const flowTiempo = addKeyword([
 
     const { city, region, temperaturaC, temperaturaF, clima } =
       await getWeather(location);
-    console.log(ctx);
-    // console.log(ctx.body);
+
     const message = generarMessageClima(
       ctx.pushName,
       city,

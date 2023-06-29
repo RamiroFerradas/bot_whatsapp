@@ -1,7 +1,6 @@
-const axios = require("axios");
-require("dotenv").config();
-const { HOST } = process.env;
 import { User } from "../../models/User";
+const axios = require("axios");
+const { HOST } = process.env;
 
 export const ramdomMessage = async (usuarios: User[]) => {
   const message = `Te venia a recordar que, te esta gorreando 👀. Saludos 😁`;

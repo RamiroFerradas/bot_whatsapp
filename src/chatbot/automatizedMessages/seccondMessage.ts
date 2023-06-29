@@ -1,7 +1,8 @@
-const axios = require("axios");
-require("dotenv").config();
-const { HOST } = process.env;
 import { User } from "../../models/User";
+
+const axios = require("axios");
+
+const { HOST } = process.env;
 
 export const secondMessage = async (usuarios: User[]) => {
   const message = `¡Hola! Soy tu asistente automático. Estoy aquí para ayudarte con algunas consultas comunes:\n

@@ -1,8 +1,8 @@
 import { ChatContext } from "../../models/ChatContext";
 import { getInfoCrypto } from "../../services";
+import { flujoAgradecimiento } from "./agradecimiento";
 
-var { addKeyword } = require("@bot-whatsapp/bot");
-var { flujoAgradecimiento } = require("./agradecimiento");
+const { addKeyword } = require("@bot-whatsapp/bot");
 
 export const flujoCrypto = addKeyword(["btc", "eth", "crypto"]).addAnswer(
   `El precio actual de Bitcoin (BTC) es:`,

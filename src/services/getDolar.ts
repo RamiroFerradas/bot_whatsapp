@@ -1,6 +1,5 @@
 import { formatNumber, getDateTime } from "../utils";
 
-require("dotenv").config();
 const convert = require("xml-js");
 const axios = require("axios");
 

@@ -1,4 +1,4 @@
-var { addKeyword } = require("@bot-whatsapp/bot");
+const { addKeyword } = require("@bot-whatsapp/bot");
 
 export const flujoAgradecimiento = addKeyword([
   "gracias",

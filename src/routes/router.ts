@@ -1,14 +1,12 @@
 import { Router, Request, Response } from "express";
 import { join } from "path";
 import { createReadStream } from "fs";
-var cron = require("node-cron");
 import axios from "axios";
+import { adapterProvider } from "../chatbot/app";
+import { verificarAutenticacion } from "./auth";
+const cron = require("node-cron");
 
-require("dotenv").config();
-
-const router: Router = Router();
-const { adapterProvider } = require("../chatbot/app");
-const verificarAutenticacion = require("./auth");
+export const router: Router = Router();
 
 // Middleware para verificar la autenticación
 
@@ -30,7 +28,9 @@ router.post("/send-message-bot", async (req: Request, res: Response) => {
     res.send({ data: "enviado!" });
   } catch (error: any) {
     console.error(error.message);
-    res.status(500).json({ error: "Error al enviar el mensaje" });
+    res
+      .status(500)
+      .json({ error: `Error al enviar el mensaje: ${error.message}` });
   }
 });
 
@@ -61,5 +61,3 @@ if (applyDelay) {
     }
   });
 }
-
-module.exports = router;

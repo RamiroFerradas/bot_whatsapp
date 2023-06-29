@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 // async function example() {
 //   const { ChatGPTAPI } = await import("chatgpt");
 

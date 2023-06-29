@@ -1,4 +1,3 @@
-require("dotenv").config();
 const axios = require("axios");
 
 import { User } from "../../models/User";

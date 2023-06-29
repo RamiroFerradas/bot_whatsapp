@@ -1,9 +1,8 @@
+const { addKeyword } = require("@bot-whatsapp/bot");
+
+import menusData from "../../json/menus.json";
 import { ChatContext } from "../../models/ChatContext";
 import { Menu } from "../../models/Menu";
-
-var { addKeyword } = require("@bot-whatsapp/bot");
-
-const menusData = require("../../json/menus.json");
 
 export const flujoPedido = addKeyword(["pedir", "pedido"]);
 

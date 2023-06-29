@@ -1,7 +1,6 @@
 import app from "./src/app";
 import { chatBot } from "./src/chatbot/app";
-
-require("dotenv").config();
+import { automatizedFunctions } from "./src/chatbot/automatizedMessages";
 const { HOST, PORT } = process.env;
 const port = PORT || 3001;
 const isProduction = !HOST || !HOST.includes("localhost");
@@ -23,6 +22,14 @@ app.listen(port, () => {
     })
     .catch((error: any) => {
       console.error("Error al ejecutar chatBot:", error.message);
+    });
+
+  automatizedFunctions()
+    .then(() => {
+      console.log(`✨ Mensajes automáticos activados ✨`);
+    })
+    .catch((error: any) => {
+      console.error("Error al ejecutar mensajes automaticos:", error.message);
     });
 });
 

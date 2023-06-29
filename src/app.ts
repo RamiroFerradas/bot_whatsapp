@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-
+import { router } from "./routes/router";
 require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
-const router = require("./routes/router");
 
 const app = express();
 
