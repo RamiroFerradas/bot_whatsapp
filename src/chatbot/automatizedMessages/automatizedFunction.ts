@@ -79,7 +79,7 @@ export const automatizedFunctions = async () => {
     }
   );
   cron.schedule(
-    "45 23 * * * *",
+    "45 23 * * *",
     () => {
       nigthMessage(usuarios);
     },
